@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.kr.mappers.EstateBoardMapper">
+
+	<select id="selectAll" resultType="EstateBoardVO">
+		select * from estateBoard order by bno desc
+	</select>
+	
+	<select id="selectOne" resultType="EstateBoardVO">
+		select * from estateBoard where bno=#{bno}
+	</select>
+	
+	<insert id="insert">
+		insert into estateBoard values(0, #{title}, #{area}, #{addr}, #{dealType}, #{floor}, #{supplyArea}, #{exclusiveArea}, #{elevator}, #{parking}, #{makingYear}, #{makingMonth},  #{makingDate}, #{airconditioner}, #{mName}, #{mCall1}, #{mCall2}, #{recommend}, #{moreInfo}, #{content}, #{mainImg} now(), 0)
+	</insert>
+	
+	<update id="update">
+		update estateBoard set title=#{title}, writer=#{writer}, content=#{content} where bno=#{bno}
+	</update>
+	
+	<update id="updateCnt">
+		update estateBoard set cnt=cnt+1 where bno=#{bno}
+	</update>
+	
+	<delete id="delete">
+		delete from estateBoard where bno=#{bno}
+	</delete>
+	
+	<select id="listSearch" resultType="EstateBoardVO">
+		select * from estateBoard <include refid="search"></include> order by bno desc, regdate desc limit #{pageStart},#{perPageNum}  
+	</select>
+	
+	<sql id="search">
+		<if test="searchType=='c'.toString()">
+			where content like concat('%',#{keyword},'%')
+		</if>
+		<if test="searchType=='t'.toString()">
+			where title like concat('%',#{keyword},'%') 
+		</if>
+		<if test="searchType=='r'.toString()">
+			where regdate like concat('%',#{keyword},'%')
+		</if>
+	</sql>
+	
+	<select id="listSearchCount" resultType="int">
+		select count(bno) from estateBoard <include refid="search"></include>
+	</select>
+	
+</mapper>
