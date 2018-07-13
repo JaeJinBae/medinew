@@ -2,6 +2,7 @@ package co.kr.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import co.kr.domain.EstateBoardVO;
 import co.kr.domain.PageMaker;
@@ -42,6 +45,8 @@ public class AdminController {
 	
 	@Autowired
 	private EstateBoardService eService;
+	
+	private String innerUploadPath="resources/estateUpload";
 	
 	@RequestMapping(value="/adminLoginCheck/{id}/{pw}")
 	public ResponseEntity<String> loginCheck(@PathVariable("id") String id,@PathVariable("pw") String pw, HttpServletRequest req) throws Exception{
@@ -96,6 +101,43 @@ public class AdminController {
 		return "admin/estateMain";
 	}
 	
+	@RequestMapping(value = "/adminEstateRead", method = RequestMethod.GET)
+	public String admineEtateRead(int bno, @ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
+		logger.info("adminEstateRead Get");
+		
+		EstateBoardVO vo=eService.selectOne(bno);
+		eService.updateCnt(bno);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.makeSearch(cri.getPage());
+		pageMaker.setTotalCount(eService.listSearchCount(cri));
+
+		model.addAttribute("item", vo);
+		model.addAttribute("pageMaker", pageMaker);
+		
+		return "admin/estateRead";
+	}
+	
+	@RequestMapping(value = "/adminEstateDelete", method = RequestMethod.GET)
+	public String adminEstateDelete(int bno, SearchCriteria cri, RedirectAttributes rtts, HttpServletRequest req)
+			throws Exception {
+		logger.info("adminEstateDelete delete");
+
+		HttpSession session = req.getSession(false);
+
+		if (session.getAttribute("id") == null) {
+			logger.info("아이디는 null 입니다.");
+			return "admin/adminLogin";
+		}
+
+		eService.delete(bno);// 게시글, 파일 삭제
+		rtts.addAttribute("perPageNum", cri.getPerPageNum());
+		rtts.addAttribute("page", cri.getPage());
+
+		return "redirect:/estateMain";
+	}
+	
 	@RequestMapping(value="/adminEstateWrite", method = RequestMethod.GET)
 	public String adminEstateWrite(@ModelAttribute("cri") SearchCriteria cri, Model model, HttpServletRequest req) throws Exception{
 		logger.info("estateWrite Get");
@@ -120,8 +162,8 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/adminEstateWrite", method = RequestMethod.POST)
-	public String adminBroadcastingRegisterPost(EstateBoardVO vo, HttpServletRequest req) {
-		logger.info("adminBroadcastingRegister post");
+	public String adminBroadcastingRegisterPost(EstateBoardVO vo, MultipartFile mainImg2, HttpServletRequest req, Model model) {
+		logger.info("adminEstateWrite post");
 
 		HttpSession session = req.getSession(false);
 
@@ -129,11 +171,45 @@ public class AdminController {
 			logger.info("아이디는 null 입니다.");
 			return "main/index";
 		}
-
+		
+		String root_path=req.getSession().getServletContext().getRealPath("/");
+		
+		File dirPath=new File(root_path+"/"+innerUploadPath);
+		if(dirPath.exists() == false){
+			dirPath.mkdirs();
+		}
+		
+		UUID uid=UUID.randomUUID();//중복방지를 위하여 랜덤값 생성
+		String savedName=uid.toString()+"_"+mainImg2.getOriginalFilename();
+		
+		//해당 경로에 파일 그릇을 만듬
+		File target=new File(root_path+"/"+innerUploadPath,savedName);
+		
+		try {
+			FileCopyUtils.copy(mainImg2.getBytes(), target);
+			model.addAttribute("filename",innerUploadPath+"/"+savedName);
+			logger.info(root_path+"/"+innerUploadPath+"/"+savedName);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		vo.setMainImg(savedName);
 		eService.insert(vo);
+	
 
 		return "redirect:/estateMain";
 	}
+	
+	@RequestMapping(value="/mainImgUpload",method=RequestMethod.POST)
+	public String innerUploadResult(MultipartFile mainImg, HttpServletRequest request, Model model){
+		logger.info("file: "+mainImg.getOriginalFilename());
+		
+		
+		
+		
+		return "innerUploadResult";
+	}
+	
 	
 	@ResponseBody
 	@RequestMapping("/ckImgUpload")
@@ -160,7 +236,7 @@ public class AdminController {
 		byte[] bytes = upload.getBytes();
 
 		// 이미지를 업로드할 디렉토리(배포경로로 설정)
-		String innerUploadPath = "resources/upload/";
+		String innerUploadPath = "resources/estateUpload/";
 		String uploadPath = (req.getSession().getServletContext().getRealPath("/")) + innerUploadPath;
 		logger.info(uploadPath);
 

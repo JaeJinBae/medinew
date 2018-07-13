@@ -72,7 +72,7 @@
 </style>
 	<div class="headerWrap">
 		<div class="logoDiv">
-			<a href="${pageContext.request.contextPath}/"><img class="logoImg" src="${pageContext.request.contextPath}/resources/images/logoEng.png"></a>
+			<a href="${pageContext.request.contextPath}/"><img class="logoImg" src="${pageContext.request.contextPath}/resources/images/logoEng3.png"></a>
 			<div class="logoText">
 				<img src="${pageContext.request.contextPath}/resources/images/question.png">
 			</div>
@@ -85,27 +85,27 @@
 					</a>
 				</li>
 				<li>
-					<a href="${pageContext.request.contextPath}/estateHome">
+					<a href="${pageContext.request.contextPath}/mediLoan">
 						<img src="${pageContext.request.contextPath}/resources/images/menu02.png"><br>개원 자금
 					</a>
 				</li>
 				<li>
-					<a href="${pageContext.request.contextPath}/estateHome">
+					<a href="${pageContext.request.contextPath}/mediAd">
 						<img src="${pageContext.request.contextPath}/resources/images/menu03.png"><br>병·의원 홍보
 					</a>
 				</li>
 				<li>
-					<a href="${pageContext.request.contextPath}/estateHome">
+					<a href="${pageContext.request.contextPath}/mediInstrument">
 						<img src="${pageContext.request.contextPath}/resources/images/menu04.png"><br>의료기기/용품
 					</a>
 				</li>
 				<li>
-					<a href="${pageContext.request.contextPath}/estateHome">
+					<a href="${pageContext.request.contextPath}/mediInterior">
 						<img src="${pageContext.request.contextPath}/resources/images/menu05.png"><br>실내외 공사
 					</a>
 				</li>
 				<li>
-					<a href="${pageContext.request.contextPath}/estateHome">
+					<a href="${pageContext.request.contextPath}/mediConsulting">
 						<img src="${pageContext.request.contextPath}/resources/images/menu06.png"><br>경영 컨설팅
 					</a>
 				</li>

@@ -12,44 +12,54 @@ import co.kr.domain.SearchCriteria;
 @Repository
 public class EstateBoardDaoImpl implements EstateBoardDao {
 
-	private static final String namespace="co.kr.mappers.EstateBoardMapper";
-	
+	private static final String namespace = "co.kr.mappers.EstateBoardMapper";
+
 	@Autowired
 	private SqlSession session;
-	
+
 	@Override
 	public List<EstateBoardVO> selectAll() {
-		return session.selectList(namespace+".selectAll");
+		return session.selectList(namespace + ".selectAll");
 	}
 
 	@Override
 	public EstateBoardVO selectOne(int bno) {
-		return session.selectOne(namespace+".selectOne", bno);
-	} 
+		return session.selectOne(namespace + ".selectOne", bno);
+	}
+
+	@Override
+	public List<EstateBoardVO> selectByNew() {
+		return session.selectList(namespace + ".selectByNew");
+	}
+
+	@Override
+	public List<EstateBoardVO> selectByHot() {
+		return session.selectList(namespace + ".selectByHot");
+	}
 
 	@Override
 	public void insert(EstateBoardVO vo) {
-		session.insert(namespace+".insert", vo);
+		session.insert(namespace + ".insert", vo);
 	}
 
 	@Override
 	public void updateCnt(int bno) {
-		session.update(namespace+".updateCnt", bno);
+		session.update(namespace + ".updateCnt", bno);
 	}
 
 	@Override
 	public void delete(int bno) {
-		session.delete(namespace+".delete", bno);
+		session.delete(namespace + ".delete", bno);
 	}
 
 	@Override
 	public List<EstateBoardVO> listSearch(SearchCriteria cri) throws Exception {
-		return session.selectList(namespace+".listSearch", cri);
+		return session.selectList(namespace + ".listSearch", cri);
 	}
 
 	@Override
 	public int listSearchCount(SearchCriteria cri) throws Exception {
-		return session.selectOne(namespace+".listSearchCount", cri);
+		return session.selectOne(namespace + ".listSearchCount", cri);
 	}
 
 }

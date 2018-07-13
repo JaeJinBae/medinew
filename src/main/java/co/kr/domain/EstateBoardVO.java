@@ -9,17 +9,17 @@ public class EstateBoardVO {
 	private String addr;
 	private String dealType;
 	private String floor;
-	private int supplyArea;
-	private int exclusiveArea;
+	private double supplyArea;
+	private double exclusiveArea;
 	private int elevator;
 	private int parking;
 	private int makingYear;
 	private int makingMonth;
-	private int makingDate;
 	private String airconditioner;
 	private String mName;
 	private String mcall1;
 	private String mcall2;
+	private String memail;
 	private String recommend;
 	private String moreInfo;
 	private String content;
@@ -79,21 +79,21 @@ public class EstateBoardVO {
 		this.floor = floor;
 	}
 
-	public int getSupplyArea() {
+	public double getSupplyArea() {
 		return supplyArea;
 	}
 
-	public void setSupplyArea(int supplyArea) {
+	public void setSupplyArea(double supplyArea) {
 		this.supplyArea = supplyArea;
 	}
 
-	public int getExclusiveArea() {
+	public double getExclusiveArea() {
 		return exclusiveArea;
 	}
 
-	public void setExclusiveArea(int exclusiveArea) {
+	public void setExclusiveArea(double exclusiveArea) {
 		this.exclusiveArea = exclusiveArea;
-	}
+	} 
 
 	public int getElevator() {
 		return elevator;
@@ -127,13 +127,6 @@ public class EstateBoardVO {
 		this.makingMonth = makingMonth;
 	}
 
-	public int getMakingDate() {
-		return makingDate;
-	}
-
-	public void setMakingDate(int makingDate) {
-		this.makingDate = makingDate;
-	}
 
 	public String getAirconditioner() {
 		return airconditioner;
@@ -165,6 +158,14 @@ public class EstateBoardVO {
 
 	public void setMcall2(String mcall2) {
 		this.mcall2 = mcall2;
+	}
+
+	public String getMemail() {
+		return memail;
+	}
+
+	public void setMemail(String memail) {
+		this.memail = memail;
 	}
 
 	public String getRecommend() {
@@ -220,10 +221,11 @@ public class EstateBoardVO {
 		return "EstateBoardVO [bno=" + bno + ", title=" + title + ", area=" + area + ", addr=" + addr + ", dealType="
 				+ dealType + ", floor=" + floor + ", supplyArea=" + supplyArea + ", exclusiveArea=" + exclusiveArea
 				+ ", elevator=" + elevator + ", parking=" + parking + ", makingYear=" + makingYear + ", makingMonth="
-				+ makingMonth + ", makingDate=" + makingDate + ", airconditioner=" + airconditioner + ", mName=" + mName
-				+ ", mcall1=" + mcall1 + ", mcall2=" + mcall2 + ", recommend=" + recommend + ", moreInfo=" + moreInfo
-				+ ", content=" + content + ", regdate=" + regdate + ", cnt=" + cnt + "]";
+				+ makingMonth + ", airconditioner=" + airconditioner + ", mName=" + mName + ", mcall1=" + mcall1
+				+ ", mcall2=" + mcall2 + ", recommend=" + recommend + ", moreInfo=" + moreInfo + ", content=" + content
+				+ ", mainImg=" + mainImg + ", regdate=" + regdate + ", cnt=" + cnt + "]";
 	}
 
+	
 		
 }

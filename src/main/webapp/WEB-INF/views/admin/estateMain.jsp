@@ -198,12 +198,12 @@
 								<tr>
 									<td>${item.bno}</td>
 									<td>${item.area}</td>
-									<td><img class="tableInnerImg" src="${pageContext.request.contextPath}/resources/images/${item.mainImg}"></td>
+									<td><img class="tableInnerImg" src="${pageContext.request.contextPath}/resources/estateUpload/${item.mainImg}"></td>
 									<td><h4>${item.dealType}</h4></td>
 									<td>${item.floor}</td>
 									<td>${item.supplyArea}/${item.exclusiveArea}</td>
 									<td>
-										<h3><a href="">${item.title}</a></h3>
+										<h3><a href="${pageContext.request.contextPath}/adminEstateRead${pageMaker.makeSearch(pageMaker.cri.page)}&bno=${item.bno}">${item.title}</a></h3>
 										<span class="group">
 											${item.recommend}
 										</span>
@@ -214,7 +214,7 @@
 					    </c:otherwise> 
 					</c:choose>
 				</table>
-				<p class="registerBtn"><a href="${pageContext.request.contextPath}/adminEstateWrite?${pageMaker.makeSearch(pageMaker.cri.page)}"><button>글쓰기</button></a></p>
+				<p class="registerBtn"><a href="${pageContext.request.contextPath}/adminEstateWrite${pageMaker.makeSearch(pageMaker.cri.page)}"><button>글쓰기</button></a></p>
 				<div class="page">
 					<ul>
 						<c:if test="${pageMaker.prev}">

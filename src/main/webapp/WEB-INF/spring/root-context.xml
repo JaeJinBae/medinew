@@ -14,12 +14,12 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
 	<!-- 호스팅용 -->	
-	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-		<property name="url" value="jdbc:mysql://localhost:3306/uhanpain"/>
-		<property name="username" value="uhanpain"/>
-		<property name="password" value="uhanpain12!"/>
-	</bean> -->
+		<property name="url" value="jdbc:mysql://localhost:3306/medinew"/>
+		<property name="username" value="medinew"/>
+		<property name="password" value="medinew12!"/>
+	</bean>
 	
 	<!-- 호스팅 테스트 -->	
 	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -30,12 +30,12 @@
 	</bean> -->
 	
 	<!-- 개발용 -->
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
 		<property name="url" value="jdbc:mysql://127.0.0.1:3306/book_ex"/>
 		<property name="username" value="root"/>
 		<property name="password" value="rootroot"/>
-	</bean>
+	</bean> -->
 
 	
 	<!-- 로그 찍히게 하는 녀석(junit으로 테스트 할 때 사용) -->

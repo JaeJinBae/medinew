@@ -30,7 +30,7 @@
 	
 	<beans:bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
 	<resources mapping="/robots.txt" location="/robots.txt" order="0"/>
-	<resources mapping="/logo.png" location="/logo.png" order="0"/>
+	<resources mapping="/logo.png" location="/logoEng.png" order="0"/>
 	<resources mapping="/sitemap.xml" location="/sitemap.xml" order="0"/>
 	
 </beans:beans>

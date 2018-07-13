@@ -12,10 +12,10 @@ import co.kr.persistence.EstateBoardDao;
 
 @Service
 public class EstateBoardServiceImpl implements EstateBoardService {
-	
+
 	@Autowired
 	private EstateBoardDao dao;
-	
+
 	@Override
 	public List<EstateBoardVO> selectAll() {
 		return dao.selectAll();
@@ -24,6 +24,16 @@ public class EstateBoardServiceImpl implements EstateBoardService {
 	@Override
 	public EstateBoardVO selectOne(int bno) {
 		return dao.selectOne(bno);
+	}
+
+	@Override
+	public List<EstateBoardVO> selectByNew() {
+		return dao.selectByNew();
+	}
+
+	@Override
+	public List<EstateBoardVO> selectByHot() {
+		return dao.selectByHot();
 	}
 
 	@Override

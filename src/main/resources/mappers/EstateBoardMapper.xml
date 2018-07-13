@@ -12,8 +12,16 @@
 		select * from estateBoard where bno=#{bno}
 	</select>
 	
+	<select id="selectByNew" resultType="EstateBoardVO">
+		select * from estateBoard order by bno desc limit 8
+	</select>
+	
+	<select id="selectByHot" resultType="EstateBoardVO">
+		select * from estateBoard order by cnt desc limit 8
+	</select>
+	
 	<insert id="insert">
-		insert into estateBoard values(0, #{title}, #{area}, #{addr}, #{dealType}, #{floor}, #{supplyArea}, #{exclusiveArea}, #{elevator}, #{parking}, #{makingYear}, #{makingMonth},  #{makingDate}, #{airconditioner}, #{mName}, #{mCall1}, #{mCall2}, #{recommend}, #{moreInfo}, #{content}, #{mainImg} now(), 0)
+		insert into estateBoard values(0, #{title}, #{area}, #{addr}, #{dealType}, #{floor}, #{supplyArea}, #{exclusiveArea}, #{elevator}, #{parking}, #{makingYear}, #{makingMonth}, #{airconditioner}, #{mName}, #{mcall1}, #{mcall2}, #{memail}, #{recommend}, #{moreInfo}, #{content}, #{mainImg}, now(), 0)
 	</insert>
 	
 	<update id="update">
@@ -41,6 +49,9 @@
 		</if>
 		<if test="searchType=='r'.toString()">
 			where regdate like concat('%',#{keyword},'%')
+		</if>
+		<if test="searchType=='g'.toString()">
+			where area like concat('%',#{keyword},'%')
 		</if>
 	</sql>
 	

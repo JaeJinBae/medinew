@@ -85,6 +85,10 @@
 		margin-top:33px;
 		margin-bottom:30px;
 	}
+	.subtitle{
+		margin-left:15px;
+		margin-bottom:10px;
+	}
 	/* 개원입지 */
 	.contentTable #form1{
 		width:1000px;
@@ -120,6 +124,26 @@
     		location.href="adminNotice${pageMaker.makeQuery(1)}&searchType="+searchType+"&keyword="+keyword;
     	});
 		
+		/* $("#form1").submit(function(){
+			alert("asdf");
+			var form = new FormData(document.getElementById("form1"));
+			
+			$.ajax({
+				url:"mainImgUpload",
+				data:form,
+				dataType:'text',
+				processData:false,
+				contentType:false,
+				type:'post',
+				success:function(obj){
+					consol.log(obj);
+				}
+			})
+			
+		});
+		$("#fileTag").on("change",function(){
+			
+		}); */
 	});
 </script>
 </head>
@@ -135,8 +159,8 @@
 		<div class="centerMenu"> 
 			<h1 class="boardTitle">&lt;개원입지 관리&gt;</h1>
 			<div class="contentTable">
-				<h2>입지정보</h2>
-				<form id="form1" method="post" action="estateWriter">
+				<h3 class="subtitle">입지정보</h3>
+				<form id="form1" method="post" action="adminEstateWrite" enctype="multipart/form-data">
 					<table>
 						<tr>
 							<th>제목</th>
@@ -145,6 +169,16 @@
 						<tr>
 							<th>소재지</th>
 							<td colspan="3"><input style="width:450px;" type="text" name="addr"></td>
+						</tr>
+						<tr>
+							<th>지역/구</th>
+							<td><input style="width:150px;" type="text" name="area" placeholder="ex) 대구/달서구"></td>
+							<th>형태</th>
+							<td>
+								<input type="radio" name="dealType" value="매매">매매 
+								<input type="radio" name="dealType" value="임대">임대 
+								<input type="radio" name="dealType" value="양도">양도
+							</td>
 						</tr>
 						<tr>
 							<th>면적</th>
@@ -209,19 +243,46 @@
 							<td colspan="3">
 								<table class="checkTbl">
 									<tr>
-										<td class="checkTd"><input type="checkbox" name="recommend" value="메디컬빌딩">메디컬빌딩</td>
-										<td class="checkTd"><input type="checkbox" name="recommend" value="시설양도">시설양도</td>
-										<td class="checkTd"><input type="checkbox" name="recommend" value="신축건물">신축건물</td>
-										<td class="checkTd"><input type="checkbox" name="recommend" value="인테리어지원">인테리어지원</td>
+										<td class="checkTd"><input type="checkbox" name="moreInfo" value="메디컬빌딩">메디컬빌딩</td>
+										<td class="checkTd"><input type="checkbox" name="moreInfo" value="시설양도">시설양도</td>
+										<td class="checkTd"><input type="checkbox" name="moreInfo" value="신축건물">신축건물</td>
+										<td class="checkTd"><input type="checkbox" name="moreInfo" value="인테리어지원">인테리어지원</td>
 									</tr>
 									<tr>
-										<td class="checkTd"><input type="checkbox" name="recommend" value="임대료지원">임대료지원</td>
-										<td class="checkTd"><input type="checkbox" name="recommend" value="역세권">역세권</td>
-										<td class="checkTd"><input type="checkbox" name="recommend" value="장비양도">장비양도</td>
+										<td class="checkTd"><input type="checkbox" name="moreInfo" value="임대료지원">임대료지원</td>
+										<td class="checkTd"><input type="checkbox" name="moreInfo" value="역세권">역세권</td>
+										<td class="checkTd"><input type="checkbox" name="moreInfo" value="장비양도">장비양도</td>
 										<td class="checkTd"></td>
 									</tr>
 								</table>
 							</td>
+						</tr>
+						<tr>
+							<th>담당자</th>
+							<td colspan="3">
+								<table style="width:100%;">
+									<tr>
+										<td style="width:120px;">이름 : </td>
+										<td><input type="text" name="mName"></td>
+									</tr>
+									<tr>
+										<td style="width:120px;">전화번호 : </td>
+										<td><input type="text" name="mcall1"></td>
+									</tr>
+									<tr>
+										<td style="width:120px;">휴대전화 : </td>
+										<td><input type="text" name="mcall2"></td>
+									</tr>
+									<tr>
+										<td style="width:120px;">이메일 : </td>
+										<td><input type="text" name="memail"></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>대표사진</th>
+							<td colspan="3"><input id="fileTag" type="file" name="mainImg2"><input type="hidden" name="mainImg" value="asdf"></td>
 						</tr>
 						<tr>
 							<th>설명</th>
@@ -235,6 +296,7 @@
 							</td>
 						</tr>
 					</table>
+					<input type="submit" value="저장">
 				</form>
 			</div><!-- contentTable end -->
 		</div><!-- centerMenu end -->
